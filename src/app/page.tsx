@@ -35,7 +35,10 @@ export default async function ProductsPage() {
 
   return (
     <main className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Products</h1>
+      <span className="absolute right-5 p-2 rounded-lg text-xs top-15 rotate-25 transform -translate-y-1/2 text-white bg-red-700 font-bold">
+        Site is under construction
+      </span>
+      <h1 className="text-3xl font-bold mb-6 text-center">Manaro.com.au</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
 
         {sortedProducts.map((product) => (
