@@ -27,6 +27,8 @@ async function getProducts(): Promise<Product[]> {
   return data; // Take first 10 products
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProductsPage() {
   const products = await getProducts();
   const sortedProducts = products.toSorted((a, b) => a['Webshop price'] - b['Webshop price']);
