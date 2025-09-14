@@ -1,6 +1,10 @@
+import { IProduct } from "../models/Product";
 
-
-export default function ProductClientUnit({product, onAction}) {
+interface ProductClientUnitProps {
+  product: IProduct;
+  onAction: () => void;
+}
+export default function ProductClientUnit({product, onAction}: ProductClientUnitProps) {
 
 return <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
             <img
@@ -15,7 +19,7 @@ return <div className="bg-white shadow-md rounded-lg overflow-hidden hover:shado
               <div className="flex justify-between text-gray-700 font-medium">
                 <span>Stock: {product.Stock}</span>
                 <a
-                  key={product._id}
+                  key={product._id as string}
                   href={product.Link}
                   target="_blank"
                   rel="noopener noreferrer"><span className="text-indigo-600">${product['Webshop price'].toFixed(2)}</span></a>

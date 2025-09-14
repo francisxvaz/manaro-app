@@ -11,7 +11,13 @@ interface PageProps {
   };
 }
 
-async function getProducts(page = 1, limit = 4): Promise<IProduct[]> {
+interface GetProductsResult {
+  products: IProduct[];
+  total: number;
+  totalPages: number;
+}
+
+async function getProducts(page = 1, limit = 4): Promise<GetProductsResult> {
   const API_URL_BASE = process.env.NEXT_PUBLIC_API_URL!;
   const res = await fetch(`${API_URL_BASE}/api/products?page=${page}&limit=${limit}`, {
     // Optional: for ISR revalidation (cache 60 seconds)

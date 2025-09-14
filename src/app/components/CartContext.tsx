@@ -1,12 +1,26 @@
-// src/app/components/CartContext.tsx
 'use client';
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { IProduct } from '../models/Product';
+import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 
-export const CartContext = createContext(null);
+interface CartProviderProps {
+  children: ReactNode;
+}
 
-export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState(() => {
+interface CartItem {
+  ean: string;
+  quantity: number;
+}
+
+interface CartContextType {
+  cartItems: CartItem[];
+  addToCart: (ean: string) => void;
+  removeFromCart: (ean: string) => void;
+  clearCart: () => void;
+}
+
+export const CartContext = createContext<CartContextType | null>(null);
+
+export function CartProvider({ children }: CartProviderProps) {
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('cartItems');
       return saved ? JSON.parse(saved) : [];
@@ -14,23 +28,28 @@ export function CartProvider({ children }) {
     return [];
   });
 
-  const addToCart = (item: string) => {
+  const addToCart = (ean: string) => {
     setCartItems(prev => {
-      const found = prev.find((i) => i === item);
+      const found = prev.find(i => i.ean === ean);
       if (found) {
-        return prev.map(i => i === item ? { ...i, quantity: i.quantity + 1 } : i);
+        return prev.map(i =>
+          i.ean === ean ? { ...i, quantity: i.quantity + 1 } : i
+        );
       }
-      return [...prev, { ...item, quantity: 1 }];
+      return [...prev, { ean, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (item) => {
+  const removeFromCart = (ean: string) => {
     setCartItems(prev => {
-      const found = prev.find(i => i === item);
+      const found = prev.find(i => i.ean === ean);
+      if (!found) return prev;
       if (found.quantity === 1) {
-        return prev.filter(i => i.id !== item);
+        return prev.filter(i => i.ean !== ean);
       }
-      return prev.map(i => i === item ? { ...i, quantity: i.quantity - 1 } : i);
+      return prev.map(i =>
+        i.ean === ean ? { ...i, quantity: i.quantity - 1 } : i
+      );
     });
   };
 
@@ -47,7 +66,7 @@ export function CartProvider({ children }) {
   );
 }
 
-export const useCart = () => {
+export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error('useCart must be used within a CartProvider');
