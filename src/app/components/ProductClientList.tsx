@@ -24,7 +24,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
-            <Button onClick={deleteLocalStorage}>Clear Cart</Button>
+            
             {products.map(product => (
                 <ProductClientUnit
                     product={product}
@@ -33,7 +33,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                 />
 
             ))}
-            
+            <Button onClick={deleteLocalStorage}>Clear Cart</Button>
         </div>
     );
 }
