@@ -1,6 +1,5 @@
 // ProductClientList.tsx (client component)
 'use client';
-import { useState } from 'react';
 import ProductClientUnit from './ProductClientUnit';
 import { useCart } from './CartContext';
 import { IProduct } from '../models/Product';
@@ -12,10 +11,15 @@ interface ProductClientListProps {
 
 
 export default function ProductClientList({ products }: ProductClientListProps) {
-    const { addToCart, clearCart  } = useCart();
-    function handleProductAction(ean: string) {
+    const { addToCart, clearCart, cartItems, removeFromCart  } = useCart();
+    function AddProductToSelect(ean: string) {
         console.log('Adding EAN : ' + ean)
         addToCart(ean)
+    }
+
+    function RemoveProductFromSelect(ean: string) {
+        console.log('Adding EAN : ' + ean)
+        removeFromCart(ean)
     }
 
     function deleteLocalStorage(): void {
@@ -29,7 +33,9 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                 <ProductClientUnit
                     product={product}
                     key={product.SKU}
-                    onAction={() => handleProductAction(product.EAN)}
+                    onSelectAction={() => AddProductToSelect(product.EAN)}
+                    inCart={cartItems.some(item => item.ean === product.EAN)}
+                    onRemoveAction={() => RemoveProductFromSelect(product.EAN)}
                 />
 
             ))}
