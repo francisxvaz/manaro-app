@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { IProduct } from "../models/Product";
 
 interface ProductClientUnitProps {
@@ -32,10 +33,10 @@ export default function ProductClientUnit({product, onSelectAction, inCart, onRe
             <span className="text-indigo-600">${product['Webshop price'].toFixed(2)}</span>
           </a>
           {!inCart && (
-            <button className="cursor-pointer" onClick={onSelectAction}>Add</button>
+            <Button className="cursor-pointer" onClick={onSelectAction}>Add</Button>
           )}
           {inCart && (
-            <button className="cursor-pointer" onClick={onRemoveAction}>Remove</button>
+            <Button className="cursor-pointer" onClick={onRemoveAction}>Remove</Button>
           )}
         </div>
       </div>
