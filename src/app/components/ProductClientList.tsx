@@ -4,7 +4,8 @@ import ProductClientUnit from './ProductClientUnit';
 import { useCart } from './CartContext';
 import { IProduct } from '../models/Product';
 import { Button } from '@/components/ui/button';
-import ExportButton from './ExportCsvButton';
+import { ShoppingCart, Recycle, Download } from "lucide-react";
+
 
 interface ProductClientListProps {
     products: IProduct[];
@@ -51,24 +52,34 @@ export default function ProductClientList({ products }: ProductClientListProps) 
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
+        <>
+            <div>
+                <div className="flex justify-end items-center gap-2 py-2 pr-4">
+                    <Recycle className='cursor-pointer text-red-600' onClick={deleteLocalStorage}/>
+                    <Download
+                        className="w-5 h-5 text-green-500 cursor-pointer transition-colors hover:text-green-700"
+                        onClick={() => exportCSV(eanArray)}
+                    />
+                    <span className="font-semibold text-gray-800">({eanArray.length})</span>
+                </div>
 
-            {products.map(product => (
-                <ProductClientUnit
-                    product={product}
-                    key={product.SKU}
-                    onSelectAction={() => AddProductToSelect(product.EAN)}
-                    inCart={cartItems.some(item => item.ean === product.EAN)}
-                    onRemoveAction={() => RemoveProductFromSelect(product.EAN)}
-                />
+                
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
 
-            ))}
-            <Button onClick={deleteLocalStorage}>Clear Cart</Button>
+                {products.map(product => (
+                    <ProductClientUnit
+                        product={product}
+                        key={product.SKU}
+                        onSelectAction={() => AddProductToSelect(product.EAN)}
+                        inCart={cartItems.some(item => item.ean === product.EAN)}
+                        onRemoveAction={() => RemoveProductFromSelect(product.EAN)}
+                    />
 
-            <Button onClick={() => exportCSV(eanArray)}>
-                Export CSV
-            </Button>
-        </div>
+                ))}
+
+            </div>
+        </>
     );
 }
 
