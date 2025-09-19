@@ -2,7 +2,6 @@
 import React from 'react';
 import { IProduct } from './models/Product';
 import ProductClientList from './components/ProductClientList';
-import Pagination from './components/Pagination';
 import ScrollToBottomButton from './components/ScrollToBottom';
 import { PaginationDemo } from './components/Pagination-shad';
 
