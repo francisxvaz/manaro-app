@@ -39,7 +39,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const sortedProducts = products.toSorted((a, b) => a['Webshop price'] - b['Webshop price']);
   return (
     <main className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Manaro.com.au</h1>
+      
       <ProductClientList  products={sortedProducts}/>  
     </main>
   );
