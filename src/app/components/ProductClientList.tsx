@@ -3,8 +3,7 @@
 import ProductClientUnit from './ProductClientUnit';
 import { useCart } from './CartContext';
 import { IProduct } from '../models/Product';
-import { Button } from '@/components/ui/button';
-import { ShoppingCart, Recycle, Download } from "lucide-react";
+import { Recycle, Download } from "lucide-react";
 
 
 interface ProductClientListProps {
@@ -30,6 +29,11 @@ export default function ProductClientList({ products }: ProductClientListProps) 
     }
 
     async function exportCSV(eanArray: string[]) {
+        if(eanArray.length <= 0)
+        {
+            console.log('empty')
+            return;
+        }
         const response = await fetch("/api/exportProducts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
