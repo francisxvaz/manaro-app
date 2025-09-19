@@ -43,15 +43,19 @@ export function PaginationDemo({ totalPages, currentPage }: PaginationProps) {
                     <PaginationPrevious
                         href={createPageLink(Math.max(1, currentPage - 1))}
                         onClick={() => handlePageClick(currentPage - 1)}
+                        aria-disabled={currentPage === 1}
+                        className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
                     />
                 </PaginationItem>
-                
+
                 <PaginationItem>
                     <PaginationEllipsis />
                 </PaginationItem>
                 <PaginationItem>
                     <PaginationNext href={createPageLink(Math.max(1, currentPage + 1))}
-                        onClick={() => handlePageClick(currentPage + 1)} />
+                        onClick={() => handlePageClick(currentPage + 1)}
+                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
+                    />
                 </PaginationItem>
                 <PaginationLink
                     href={createPageLink(totalPages)}
