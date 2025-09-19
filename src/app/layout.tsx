@@ -37,7 +37,7 @@ export default function RootLayout({
         </span>
         <CartProvider>
           {children}
-          <Toaster richColors position="top-center" />
+          <Toaster richColors position="top-center" duration={2000}  />
         </CartProvider>
       </body>
     </html>

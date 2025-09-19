@@ -5,6 +5,7 @@ import { useCart } from './CartContext';
 import { IProduct } from '../models/Product';
 import { Recycle, Download } from "lucide-react";
 import { toast } from "sonner";
+import ScrollToBottomButton from './ScrollToBottom';
 
 interface ProductClientListProps {
     products: IProduct[];
@@ -77,6 +78,8 @@ export default function ProductClientList({ products }: ProductClientListProps) 
 
     return (
         <>
+              <ScrollToBottomButton />
+        
             <div>
                 <div className="flex justify-end items-center gap-2 py-2 pr-4">
                     <Recycle className='cursor-pointer text-red-600' onClick={deleteLocalStorage} />
@@ -103,6 +106,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                 ))}
 
             </div>
+            
         </>
     );
 }

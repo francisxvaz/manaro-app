@@ -2,6 +2,8 @@
 import React from 'react';
 import { IProduct } from './models/Product';
 import ProductClientList from './components/ProductClientList';
+import Pagination from './components/Pagination';
+import ScrollToBottomButton from './components/ScrollToBottom';
 
 interface PageProps {
   searchParams?: {
@@ -31,7 +33,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function ProductsPage({ searchParams }: PageProps) {
   const page = parseInt(searchParams?.page || '1', 10);
-  const limit = parseInt(searchParams?.limit || '10', 10);
+  const limit = parseInt(searchParams?.limit || '50', 10);
 
   const { products, total, totalPages } = await getProducts(page, limit);
 
@@ -39,8 +41,8 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const sortedProducts = products.toSorted((a, b) => a['Webshop price'] - b['Webshop price']);
   return (
     <main className="max-w-7xl mx-auto p-6">
-      
       <ProductClientList  products={sortedProducts}/>  
+      <Pagination totalPages={totalPages} currentPage={page} />
     </main>
   );
 }
