@@ -7,7 +7,7 @@ import { IProduct } from './models/Product';
 async function getTopProducts(): Promise<{ products: IProduct[] }> {
   await dbConnect();
   try {
-    const randomProducts = await Product.aggregate([{ $sample: { size: 3 } }]);
+    const randomProducts = await Product.aggregate([{ $sample: { size: 6 } }]);
     return { products: randomProducts };
   } catch (ex) {
     console.error("Error fetching products", ex);
@@ -38,7 +38,7 @@ export default async function Home() {
         </div>
         <div className="flex-1">
           <Image
-            src="https://vdxl.im/8721012057043_m_en_hd_1.jpg"
+            src={products[5]["Image 1"]}
             alt="Hero Image"
             width={600}
             height={400}

@@ -5,7 +5,7 @@ import Product from '@/app/models/Product';
 export async function GET(request: Request) {
   await dbConnect();
   try {
-    const randomProducts = await Product.aggregate([{ $sample: { size: 3 } }]);
+    const randomProducts = await Product.aggregate([{ $sample: { size: 5 } }]);
     return NextResponse.json({ products: randomProducts });
   }
   catch (ex) {
