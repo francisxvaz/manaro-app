@@ -8,7 +8,7 @@ interface ProductClientUnitProps {
   inCart: boolean;
 }
 
-export default function ProductClientUnit({product, onSelectAction, inCart, onRemoveAction}: ProductClientUnitProps) {
+export default function ProductClientUnit({ product, onSelectAction, inCart, onRemoveAction }: ProductClientUnitProps) {
 
   return (
     <div className={`shadow-md rounded-lg overflow-hidden transition-shadow duration-300 flex flex-col items-center
@@ -30,7 +30,10 @@ export default function ProductClientUnit({product, onSelectAction, inCart, onRe
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="text-indigo-600">${product['Webshop price'].toFixed(2)}</span>
+            <span className="text-indigo-600">
+              ${typeof product['Webshop price'] === 'number' ? product['Webshop price'].toFixed(2) : '0.00'}
+            </span>
+
           </a>
           {!inCart && (
             <Button className="cursor-pointer" onClick={onSelectAction}>Add</Button>

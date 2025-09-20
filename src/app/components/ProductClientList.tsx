@@ -6,9 +6,11 @@ import { IProduct } from '../models/Product';
 import { Recycle, Download } from "lucide-react";
 import { toast } from "sonner";
 import ScrollToBottomButton from './ScrollToBottom';
+import ProductSortDropdown from './ProductSortDropdown';
 
 interface ProductClientListProps {
     products: IProduct[];
+    
 }
 
 
@@ -33,6 +35,11 @@ export default function ProductClientList({ products }: ProductClientListProps) 
             },
         })
 
+    }
+
+    function onSortChange(value:string)
+    {
+        console.log(value)
     }
 
     async function exportCSV(eanArray: string[]) {
@@ -78,7 +85,6 @@ export default function ProductClientList({ products }: ProductClientListProps) 
 
     return (
         <>
-              <ScrollToBottomButton />
         
             <div>
                 <div className="flex justify-end items-center gap-2 py-2 pr-4">
@@ -89,7 +95,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                     />
                     <span className="font-semibold text-gray-800">({eanArray.length})</span>
                 </div>
-
+                <ScrollToBottomButton />
 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
