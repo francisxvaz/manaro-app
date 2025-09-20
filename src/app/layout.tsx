@@ -30,14 +30,25 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Logo />
+        <header className="flex items-center justify-between p-6 bg-white shadow-md">
+          <div className="text-2xl font-bold text-indigo-600 cursor-pointer">
+            <Logo />
+
+          </div>
+          <nav className="space-x-8 text-gray-700 font-semibold">
+            <a href="/" className="hover:text-indigo-600 transition">Home</a>
+            <a href="/products" className="hover:text-indigo-600 transition">Products</a>
+            <a href="#about" className="hover:text-indigo-600 transition">About</a>
+            <a href="#contact" className="hover:text-indigo-600 transition">Contact</a>
+          </nav>
+        </header>
 
         <span className="absolute right-5 p-2 rounded-lg text-xs top-5  tr,ansform -translate-y-1/2 text-white bg-red-700 font-bold">
           Site is under construction
         </span>
         <CartProvider>
           {children}
-          <Toaster richColors position="top-center" duration={2000}  />
+          <Toaster richColors position="top-center" duration={2000} />
         </CartProvider>
       </body>
     </html>

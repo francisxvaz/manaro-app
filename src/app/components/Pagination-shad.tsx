@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation';
 import {
     Pagination,
     PaginationContent,
@@ -18,7 +19,17 @@ interface PaginationProps {
 
 export function PaginationDemo({ totalPages, currentPage }: PaginationProps) {
 
-    const createPageLink = (page: number) => `/?page=${page}`;
+
+    const createPageLink = (page: number) => {
+        const searchParams = useSearchParams();
+        const params = new URLSearchParams(searchParams.toString());
+
+        // Update the page parameter
+        params.set('page', String(page));
+
+        // Return the full path with updated and existing query params
+        return `/products?${params.toString()}`;
+    };
 
     const handlePageClick = (page: number) => {
         toast.loading(`Fetching data for page ${page}...`);
