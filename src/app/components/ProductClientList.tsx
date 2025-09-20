@@ -5,8 +5,7 @@ import { useCart } from './CartContext';
 import { IProduct } from '../models/Product';
 import { Recycle, Download } from "lucide-react";
 import { toast } from "sonner";
-import ScrollToBottomButton from './ScrollToBottom';
-import ProductSortDropdown from './ProductSortDropdown';
+import ScrollButton from './ScrollButton';
 
 interface ProductClientListProps {
     products: IProduct[];
@@ -95,7 +94,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                     />
                     <span className="font-semibold text-gray-800">({eanArray.length})</span>
                 </div>
-                <ScrollToBottomButton />
+                <ScrollButton direction='bottom' />
 
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 justify-center">
@@ -112,6 +111,7 @@ export default function ProductClientList({ products }: ProductClientListProps) 
                 ))}
 
             </div>
+            <ScrollButton direction='top' />
             
         </>
     );

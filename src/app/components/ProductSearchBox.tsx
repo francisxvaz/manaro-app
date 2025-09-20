@@ -30,14 +30,11 @@ export function ProductSearchBox({ initialValue }: ProductSearchBoxProps) {
       } else {
         params.delete('search');
       }
-      const toastId = toast.loading(`loading products`)
+      
       params.set('page', '1'); // Reset page on new search
       router.replace(`${pathname}?${params.toString()}`);
 
-      setTimeout(() => {
-        toast.dismiss(toastId);
-        //toast.success(`Loaded products for search: ${debouncedInput}`);
-      }, 1500); // Adjust time as needed
+      
     }
   }, [debouncedInput, router, pathname, searchParams]);
 

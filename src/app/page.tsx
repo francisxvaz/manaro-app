@@ -3,6 +3,7 @@ import { PaginationDemo } from './components/Pagination-shad';
 import { FilterSortProducts } from './components/FilterSortProducts';
 import { ProductSearchBox } from './components/ProductSearchBox';
 import { IProduct } from './models/Product';
+import ScrollButton from './components/ScrollButton';
 
 interface PageProps {
   searchParams?: {
