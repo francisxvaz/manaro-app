@@ -14,19 +14,30 @@ export function ProductSearchBox({ initialValue }: ProductSearchBoxProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Keep track of previous search to avoid unnecessary routing
   const previousSearchRef = useRef<string | null>(searchParams.get('search'));
 
-  // Debounce input updates
+  // Sync input and debouncedInput whenever URL searchParam changes externally
+  useEffect(() => {
+    const currentSearch = searchParams.get('search') ?? '';
+    // Only update if URL search changes and differs from current input state
+    if (currentSearch !== input) {
+      setInput(currentSearch);
+      setDebouncedInput(currentSearch);
+      previousSearchRef.current = currentSearch;
+    }
+  }, [searchParams]);
+
+  // Debounce input changes before triggering URL update
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedInput(input), 300);
     return () => clearTimeout(timeout);
   }, [input]);
 
-  // Update URL on debounced input change if >= 3 chars or cleared
+  // Update URL query when debouncedInput changes
   useEffect(() => {
     if (debouncedInput.length >= 3 || debouncedInput.length === 0) {
       const params = new URLSearchParams(searchParams.toString());
-      const previousSearch = previousSearchRef.current;
 
       if (debouncedInput.length > 0) {
         params.set('search', debouncedInput);
@@ -34,8 +45,8 @@ export function ProductSearchBox({ initialValue }: ProductSearchBoxProps) {
         params.delete('search');
       }
 
-      // Reset page to 1 only if search query changed
-      if (previousSearch !== debouncedInput) {
+      // Reset page=1 when search changes
+      if (previousSearchRef.current !== debouncedInput) {
         params.set('page', '1');
       }
 

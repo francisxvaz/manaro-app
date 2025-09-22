@@ -13,8 +13,8 @@ export default function MainMenuClient({ categories }: { categories: string[] })
 
   const menuItems: Record<string, string[]> = {
     Products: categories,
-    Services: ["Service A", "Service B", "Service C"],
-    About: ["Our Team", "Our Story", "Careers"],
+    Color: ["pink", "yellow", "orange", "brown", "black", "red"],
+    // About: ["Our Team", "Our Story", "Careers"],
   }
 
   const handleMouseEnter = (key: string) => setOpenPopover(key)
@@ -34,7 +34,7 @@ export default function MainMenuClient({ categories }: { categories: string[] })
             onOpenChange={open => !open && setOpenPopover(null)}
           >
             <PopoverTrigger asChild>
-              {isProducts ? (
+              
                 <Link href="/products" passHref>
                   <Button
                     variant="ghost"
@@ -45,16 +45,7 @@ export default function MainMenuClient({ categories }: { categories: string[] })
                     {menuTitle}
                   </Button>
                 </Link>
-              ) : (
-                <Button
-                  variant="ghost"
-                  onMouseEnter={() => handleMouseEnter(menuTitle)}
-                  onMouseLeave={handleMouseLeave}
-                  className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none cursor-pointer"
-                >
-                  {menuTitle}
-                </Button>
-              )}
+              
             </PopoverTrigger>
             <PopoverContent
               onMouseEnter={() => handleMouseEnter(menuTitle)}
@@ -68,7 +59,15 @@ export default function MainMenuClient({ categories }: { categories: string[] })
                     key={item}
                     className="rounded-md px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm text-gray-700 dark:text-gray-200"
                   >
-                    {item}
+                    <Link
+                      href={{
+                        pathname: "/products",
+                        query: { search: item }
+                      }}
+                    >
+                      {item}
+                    </Link>
+
                   </div>
                 ))}
               </div>
