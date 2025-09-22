@@ -6,17 +6,26 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 
-const menuItems: Record<string, string[]> = {
-  Products: Array.from({ length: 20 }, (_, i) => `Feature ${i + 1}`),
-  Services: ["Service A", "Service B", "Service C"],
-  About: ["Our Team", "Our Story", "Careers"],
-}
+
 
 export default function MainMenu() {
   const [openPopover, setOpenPopover] = useState<string | null>(null)
+  const [categories, setCategories] = useState<string[]>([])
+  
+  useEffect(() => {
+    fetch('/api/products/categories')
+      .then(res => res.json())
+      .then(res => setCategories(res.categories.categoryNames))
+  }, [])
+
+  const menuItems: Record<string, string[]> = {
+  Products: categories,
+  Services: ["Service A", "Service B", "Service C"],
+  About: ["Our Team", "Our Story", "Careers"],
+}
 
   const handleMouseEnter = (key: string) => {
     setOpenPopover(key)
